@@ -1,3 +1,5 @@
+import 'package:e7twa2/DoctorProfile/controller.dart';
+import 'package:e7twa2/chat/view.dart';
 import 'package:e7twa2/widgets/customButton.dart';
 import 'package:e7twa2/widgets/customTextFeild.dart';
 import 'package:e7twa2/widgets/mediaButton.dart';
@@ -6,7 +8,14 @@ import 'package:flutter/material.dart';
 
 import '../constants.dart';
 
-class DoctorProfile extends StatelessWidget {
+class DoctorProfile extends StatefulWidget {
+  @override
+  _DoctorProfileState createState() => _DoctorProfileState();
+}
+
+class _DoctorProfileState extends State<DoctorProfile> {
+  DoctorProfileController _doctorProfileController = DoctorProfileController();
+  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -96,7 +105,20 @@ class DoctorProfile extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     MediaButton(onPressed: (){}, title: "gg",color:Colors.deepPurple,),
-                    MediaButton(onPressed: (){}, title: "gg",color:Colors.green),
+                    MediaButton(onPressed: ()async{
+                      setState(() {
+                        _isLoading = true;
+                      });
+                      await _doctorProfileController.startChat();
+                      setState(() {
+                        _isLoading = false;
+                      });
+                      // Navigator.push(context, MaterialPageRoute(builder: (context) => ChatView(
+                      //   name: ,
+                      //   date: ,
+                      //   chatId: ,
+                      // ),));
+                    }, title: "Start Chat",color:Colors.green),
                   ],
                 ),
 

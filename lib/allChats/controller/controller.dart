@@ -1,14 +1,13 @@
-
-import 'package:dio/dio.dart';
 import 'package:e7twa2/allChats/model/AllChatsModel.dart';
 import 'package:e7twa2/network/network.dart';
+import 'package:dio/dio.dart';
 
 class AllChatsController {
   AllChatsModel _allChatsModel =AllChatsModel();
   NetWork _netWork = NetWork();
   Future<AllChatsModel> getAllChats() async {
     Map<String, dynamic> _body = {
-      "user_id": 15,
+      "user_id": 4,
     };
     FormData _formData = FormData.fromMap(_body);
     var response =

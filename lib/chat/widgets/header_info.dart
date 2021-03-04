@@ -16,7 +16,7 @@ class HeaderInfo extends StatelessWidget {
           Icon(Icons.person_outline_rounded),
           CircleAvatar(
             backgroundColor: Colors.transparent,
-            backgroundImage: NetworkImage(image),
+            // backgroundImage: NetworkImage(image),
             radius: 20,
           ),
           SizedBox(width: 10,),

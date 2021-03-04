@@ -1,5 +1,8 @@
+import 'package:e7twa2/allChats/view.dart';
 import 'package:e7twa2/reportsPerceptions/view.dart';
 import 'package:flutter/material.dart';
+
+import 'fiendDoctor/view.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ReportsPerceptionsView(),
+      home: FiendDoctor(),
     );
   }
 }

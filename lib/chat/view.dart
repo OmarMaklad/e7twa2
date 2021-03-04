@@ -7,25 +7,28 @@ import 'widgets/message_bubble.dart';
 import 'widgets/send_message.dart';
 
 class ChatView extends StatefulWidget {
+  final String date;
+  final String name;
+  final int chatId;
+  ChatView({this.name,this.date, this.chatId});
   @override
   _ChatViewState createState() => _ChatViewState();
 }
 
 class _ChatViewState extends State<ChatView> {
   ChatModel _chatModel;
-  ChatController _chatController;
   bool _isLoading = true;
   Timer timer;
 
   @override
   void initState() {
     getMessages(loading: true);
-    timer = Timer.periodic(Duration(seconds:15), (timer)=> getMessages());
+    // timer = Timer.periodic(Duration(minutes:50000000), (timer)=> getMessages());
     super.initState();
   }
 
   Future<void> getMessages({bool loading = false})async{
-    _chatModel = await ChatController().getMessage();
+    _chatModel = await ChatController().getMessage(widget.chatId);
     if(loading)
       _isLoading = false;
     rebuild();
@@ -41,32 +44,37 @@ class _ChatViewState extends State<ChatView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white24,
-      body: Column(
+      body: _isLoading ? Center(child: CircularProgressIndicator(),) : Column(
         children: [
           HeaderInfo(
-            name: "omar",
+            name: widget.name,
             image: "",
-            date: "2/12",
+            date: widget.date,
             // date: widget.messageModel.dateAdded,
             // image: widget.messageModel.profileImage,
             // name: widget.messageModel.author,
           ),
-          _isLoading?Text("hhh"):Expanded(
+          Expanded(
             child: ListView.builder(
               reverse: true,
               padding: EdgeInsets.all(10),
               itemCount: _chatModel.data.length,
               itemBuilder: (_,index){
-                var message = 12.2;
                 return MessageBubble(
+                  image: _chatModel.data[index].type == 1 ? _chatModel.data[index].file : null,
                    message:_chatModel.data[index].massage,
                   date: _chatModel.data[index].createdAt,
-                  isMe:_chatModel.data[index].sender.id==15?true:false,
+                  isMe:_chatModel.data[index].senderId == 4,
                 );
               },
             ),
           ),
-          SendMessage(),
+          SendMessage(
+            chatId: _chatModel.data[0].conversationId,
+            receiverId: _chatModel.data[0].receiverId,
+            senderId: _chatModel.data[0].senderId,
+            afterSendingMessage: ()=> getMessages(),
+          ),
         ],
       ),
     );

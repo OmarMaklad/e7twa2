@@ -31,11 +31,6 @@ class ChatsCard extends StatelessWidget {
                   backgroundColor: Colors.deepOrange,
                   child:CircleAvatar(
                     maxRadius: 32,
-                    child: Image.network(
-                        "https://jeeet.net/public/dash/assets/img/${image}",
-                      fit: BoxFit.cover,
-
-                  ),
                   ),
                 ),
                 SizedBox(width: 15,),

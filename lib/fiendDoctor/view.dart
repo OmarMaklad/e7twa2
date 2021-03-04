@@ -14,7 +14,6 @@ class _FiendDoctorState extends State<FiendDoctor> {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
-
       body:Stack(
         children: [
         Container(

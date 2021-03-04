@@ -13,8 +13,9 @@ class AllChatsList extends StatelessWidget {
       child: ListView.separated(
         itemBuilder:(ctx,index)=>
             ChatsCard(
-          name: allChatsModel.data[index].sender.name,
-          image: allChatsModel.data[index].sender.image,
+          name: allChatsModel.data[index].sender.userName,
+          date: allChatsModel.data[index].sender.createdAt,
+          // image: allChatsModel.data[index].sender.ph,
         ),
         shrinkWrap: true,
         scrollDirection: Axis.vertical,

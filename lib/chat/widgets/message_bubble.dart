@@ -4,7 +4,8 @@ class MessageBubble extends StatelessWidget {
   final bool isMe;
   final String message;
   final String date;
-  MessageBubble({this.isMe, this.message, this.date});
+  final String image;
+  MessageBubble({this.isMe, this.message, this.date, this.image});
   @override
   Widget build(BuildContext context) {
     final width = 100.0;
@@ -19,12 +20,12 @@ class MessageBubble extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(message,
+          (image == null) ?  Text(message,
             style: TextStyle(
             color: isMe ? Colors.white : Colors.black,
             fontWeight: FontWeight.w700,
             ),
-          ),
+          ) : Image.network('http://ehtwa.site/api/'+image),
           SizedBox(height: 10,),
           Align(
             alignment: Alignment.bottomLeft,
