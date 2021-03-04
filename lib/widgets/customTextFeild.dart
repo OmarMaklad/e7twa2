@@ -13,9 +13,9 @@ class CustomTextField extends StatefulWidget {
   final bool prefix;
   final bool read;
   final TextEditingController controller;
-
+  final double hPadding;
   CustomTextField({ this.hint, this.onsave,
-    this.icon, this.type,  this.valid,  this.controller, this.read, this.dIcon, this.prefix});
+    this.icon, this.type,  this.valid,  this.controller, this.read, this.dIcon, this.prefix, this.hPadding = 20});
 
   @override
   _CustomTextFieldState createState() => _CustomTextFieldState();
@@ -33,7 +33,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal:20,vertical:3),
+      padding: EdgeInsets.symmetric(horizontal: widget.hPadding,vertical:3),
       child: TextFormField(
         validator: widget.valid,
         controller: widget.controller,
@@ -47,10 +47,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
         decoration: InputDecoration(
          hintText: widget.hint,
           hintStyle: TextStyle(fontSize: 14,color: kTextColor,fontFamily: "dinnextl medium"),
-          prefixIcon: Padding(
+          prefixIcon: widget.dIcon != null ? Padding(
             padding: EdgeInsets.symmetric(horizontal:10,vertical:6),
             child: SizedBox(height:25,child: Image.asset(widget.dIcon,)),
-          ),
+          ) : null,
           prefix: widget.prefix==true?Text("+966 "):null,
           prefixStyle:  TextStyle(color:kPrimaryColor,fontWeight: FontWeight.w600,fontSize: 14),
           suffixIcon: widget.icon == Icons.lock_outline
@@ -61,7 +61,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 ? Icon(Icons.visibility_off,color: kTextColor,)
                 : Icon(Icons.visibility,color: kAccentColor,),
           )
-              : null,
+              : null,contentPadding: EdgeInsets.symmetric(horizontal: widget.dIcon == null ? 20 : 0),
           filled: true,
           //prefixText: widget.hint,
           fillColor:Colors.white,
