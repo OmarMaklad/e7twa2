@@ -8,5 +8,9 @@ class  SharedHelper {
     _prefs = await SharedPreferences.getInstance();
     return _prefs.getInt('id');
   }
+  static Future<String> getToken()async {
+    _prefs = await SharedPreferences.getInstance();
+    return _prefs.getString("api_token");
+  }
 
 }

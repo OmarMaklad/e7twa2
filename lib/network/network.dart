@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 
 class NetWork {
-  final String _baseUrl = 'http://ehtwa.site/api/';
+  final String _baseUrl = 'http://ehtwa.jeeet.net/api/';
   Dio dio = Dio();
 
   Future<dynamic> getData({String url, Map<String, dynamic> headers}) async {

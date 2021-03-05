@@ -1,10 +1,33 @@
 import 'package:e7twa2/constants.dart';
 import 'package:e7twa2/fiendDoctor/view.dart';
+import 'package:e7twa2/profile/data/controller.dart';
+import 'package:e7twa2/profile/data/model.dart';
 import 'package:e7twa2/profile/view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
 
+  @override
+  _HomeViewState createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  ProfileController _profileController = ProfileController();
+  ProfileModel _profileModel=ProfileModel();
+  bool loading = true;
+  void _getProfile ()async{
+    _profileModel = await _profileController.getProfile();
+    setState(() {
+      loading= false;
+    });
+  }
+
+  @override
+  void initState() {
+    _getProfile();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -51,7 +74,12 @@ class HomeView extends StatelessWidget {
             padding:  EdgeInsets.only(top: height*.13),
             child: Column(
               children: [
-                Container(
+                loading? Center(
+                  child: SpinKitChasingDots(
+                    size: 40,
+                    color: kPrimaryColor,
+                  ),
+                ):Container(
                   margin: EdgeInsets.symmetric(horizontal: 30,),
                   height: height*.25,
                   decoration: BoxDecoration(
@@ -69,25 +97,24 @@ class HomeView extends StatelessWidget {
                               Container(
                                 height: height*.1,
                                   child: Image.asset("assets/images/baby.png",fit: BoxFit.cover,)),
-                             Text("Name", style: TextStyle(fontSize:14,fontWeight: FontWeight.bold,)),
-                             Text("3 month", style: TextStyle(fontSize:14,fontWeight: FontWeight.w600,)),
+                             Text(_profileModel.data.babyName, style: TextStyle(fontSize:14,fontWeight: FontWeight.bold,)),
+                             Text(_profileModel.data.dateOfBirth, style: TextStyle(fontSize:14,fontWeight: FontWeight.w600,)),
                             ],
                           ),
                           Column(
                             children: [
                               Container(
                                 height: height*.1,
-                                  child: Image.asset("assets/images/baby.png",fit: BoxFit.cover,)),
-                             Text("Name", style: TextStyle(fontSize:14,fontWeight: FontWeight.bold,)),
-                             Text("3 month", style: TextStyle(fontSize:14,fontWeight: FontWeight.w600,)),
+                                  child: Image.asset("assets/images/bb.png",fit: BoxFit.cover,)),
+                             Text("Last changed", style: TextStyle(fontSize:14,fontWeight: FontWeight.w600,)),
                             ],
                           ),
                           Column(
                             children: [
                               Container(
                                 height: height*.1,
-                                  child: Image.asset("assets/images/baby.png",fit: BoxFit.cover,)),
-                             Text("Name", style: TextStyle(fontSize:14,fontWeight: FontWeight.bold,)),
+                                  child: Image.asset("assets/images/bb.png",fit: BoxFit.cover,)),
+
                              Text("3 month", style: TextStyle(fontSize:14,fontWeight: FontWeight.w600,)),
                             ],
                           ),

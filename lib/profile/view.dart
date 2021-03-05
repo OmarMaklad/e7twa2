@@ -1,11 +1,35 @@
+import 'package:e7twa2/profile/data/controller.dart';
+import 'package:e7twa2/profile/data/model.dart';
 import 'package:e7twa2/widgets/customButton.dart';
 import 'package:e7twa2/widgets/customTextFeild.dart';
 import 'package:e7twa2/widgets/smallButton.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../constants.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends StatefulWidget {
+  @override
+  _ProfileState createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  ProfileController _profileController = ProfileController();
+  ProfileModel _profileModel=ProfileModel();
+  bool loading = true;
+  void _getProfile ()async{
+    _profileModel = await _profileController.getProfile();
+    setState(() {
+      loading= false;
+    });
+  }
+
+  @override
+  void initState() {
+    _getProfile();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -13,7 +37,6 @@ class Profile extends StatelessWidget {
       backgroundColor: Colors.purpleAccent,
       body:Stack(
         children: [
-
           Container(
             height: height*1,
             width: double.infinity,
@@ -47,7 +70,13 @@ class Profile extends StatelessWidget {
                 ),                 ],
             ),
           ),
-          Padding(
+          loading?
+              Center(
+                child: SpinKitChasingDots(
+                  size: 40,
+                  color: kPrimaryColor,
+                ),
+              ):Padding(
             padding:  EdgeInsets.only(top: height*.1),
             child: ListView(
               children: [
@@ -62,28 +91,28 @@ class Profile extends StatelessWidget {
 
                 SizedBox(height: height*.02,),
                 CustomTextField(
-                  hint:"baby Name",
+                  hint:_profileModel.data.babyName,
                   dIcon: "assets/images/baby.png",
                 ),
                 CustomTextField(
-                  hint: "usrName",
+                  hint: _profileModel.data.userName,
                   dIcon: "assets/images/user.png",
                 ),
                 CustomTextField(
-                  hint: "phone",
+                  hint: _profileModel.data.phone,
                   dIcon: "assets/images/phone.png",
                 ),
                 CustomTextField(
-                  hint: "email",
+                  hint: _profileModel.data.email,
                   dIcon: "assets/images/email.png",
                 ),
                 CustomTextField(
-                  hint: "date of barth",
+                  hint: _profileModel.data.dateOfBirth,
                   dIcon: "assets/images/date.png",
                 ),
                 CustomTextField(
-                  hint: "type of baby",
-                  dIcon: "assets/images/pas.png",
+                  hint: _profileModel.data.sex,
+                  dIcon: "assets/images/baby.png",
                 ),
                 SizedBox(height: height*.02,),
 
