@@ -1,10 +1,12 @@
 import 'package:e7twa2/profile/data/controller.dart';
 import 'package:e7twa2/profile/data/model.dart';
+import 'package:e7twa2/welcome/view.dart';
 import 'package:e7twa2/widgets/customButton.dart';
 import 'package:e7twa2/widgets/customTextFeild.dart';
 import 'package:e7twa2/widgets/smallButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants.dart';
 
@@ -123,7 +125,11 @@ class _ProfileState extends State<Profile> {
                   SmallButton(onPressed:(){}, title: "Update",color: Colors.purpleAccent,),
                   SmallButton(onPressed:(){}, title: "Bills",color: Colors.blue,),
                 ],),
-                CustomButton(onPressed: (){}, title: "Loge Out",color: kPrimaryColor,)
+                CustomButton(onPressed: ()async{
+                  SharedPreferences _prefs = await SharedPreferences.getInstance();
+                  _prefs.clear();
+                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => WelcomeView(),), (route) => false);
+                }, title: "Loge Out",color: kPrimaryColor,)
 
               ],
 
