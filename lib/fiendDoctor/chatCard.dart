@@ -6,12 +6,22 @@ import 'package:flutter/material.dart';
 class ChatsCard extends StatelessWidget {
   final String name;
   final String image;
-   ChatsCard({ this.name, this.image}) ;
+  final String location;
+  final String phone;
+  final String email;
+  final String spa;
+   ChatsCard({ this.name, this.image, this.location, this.phone, this.email, this.spa}) ;
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     return GestureDetector(
-      onTap:()=> Navigator.push(context, MaterialPageRoute(builder: (_)=>DoctorProfile())),
+      onTap:()=> Navigator.push(context, MaterialPageRoute(builder: (_)=>DoctorProfile(
+        spa: spa,
+        phone: phone,
+        name: name,
+        email: email,
+        location: location,
+      ))),
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 15),
         padding: EdgeInsets.symmetric(horizontal: 20),
@@ -26,19 +36,14 @@ class ChatsCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                CircleAvatar(
-                  maxRadius: 33,
-                  backgroundColor: Colors.deepOrange,
-                  child:CircleAvatar(
-                    maxRadius: 32,
-                  ),
-                ),
+                Image.asset("assets/images/doc.png"),
                 SizedBox(width: 15,),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(name,style: TextStyle(color:Colors.black,fontSize: 18, fontFamily: "dinnextl bold",),),
-                    Text(name,style: TextStyle(color:Colors.black,fontSize: 14, fontFamily: "dinnextl bold",),),
+                    Text(name,style: TextStyle(color:Colors.black,fontSize: 18,fontWeight: FontWeight.bold),),
+                    SizedBox(height: 3,),
+                    Text("Riyadh",style: TextStyle(color:Colors.grey,fontSize: 14,fontWeight: FontWeight.w600),),
                   ],
                 ),
 

@@ -9,6 +9,13 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 
 class DoctorProfile extends StatefulWidget {
+  final String location;
+  final String name;
+  final String phone;
+  final String email;
+  final String spa;
+
+   DoctorProfile({this.location, this.phone, this.email, this.spa, this.name});
   @override
   _DoctorProfileState createState() => _DoctorProfileState();
 }
@@ -52,7 +59,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                 Image.asset("assets/images/logo.png"),
                 Padding(
                   padding:EdgeInsets.only(top:30),
-                  child: SizedBox(height:height*.03,child: Image.asset("assets/images/flag.png")),
+                  child: SizedBox(height:height*.03,child: Image.asset("assets/images/flag.PNG")),
                 ),                 ],
             ),
           ),
@@ -68,43 +75,39 @@ class _DoctorProfileState extends State<DoctorProfile> {
                 Container(
                     height: height*.1,
                     child: Image.asset("assets/images/doc.png",fit: BoxFit.contain,)),
-                Text("Omar Ayman",textAlign: TextAlign.center,
+                Text(widget.name,textAlign: TextAlign.center,
                     style: TextStyle(fontSize:18,fontWeight: FontWeight.bold)),
 
 
                 SizedBox(height: height*.02,),
                 CustomTextField(
-                  hint: "location",
+                  read: true,
+                  hint: widget.location,
                   dIcon: "assets/images/user.png",
                 ),
                 CustomTextField(
-                  hint: "phone",
+                  read: true,
+                  hint: widget.phone,
                   dIcon: "assets/images/phone.png",
                 ),
                 CustomTextField(
-                  hint: "email",
+                  read: true,
+                  hint: widget.email,
                   dIcon: "assets/images/email.png",
                 ),
                 CustomTextField(
-                  hint: "spicialization",
+                  read: true,
+                  hint: widget.spa,
                   dIcon:"assets/images/hed.png",
                 ),
 
                 SizedBox(height: height*.02,),
 
                 SizedBox(height: height*.02,),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    MediaButton(onPressed: (){}, title: "GG",color:Colors.yellow,),
-                    MediaButton(onPressed: (){}, title: "gg",color:Colors.blue),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    MediaButton(onPressed: (){}, title: "gg",color:Colors.deepPurple,),
+                    MediaButton(onPressed: (){}, title: "Appointment",color:Colors.deepPurple,),
                     MediaButton(onPressed: ()async{
                       setState(() {
                         _isLoading = true;
@@ -118,9 +121,17 @@ class _DoctorProfileState extends State<DoctorProfile> {
                       //   date: ,
                       //   chatId: ,
                       // ),));
-                    }, title: "Start Chat",color:Colors.green),
+                    }, title: "Chat",color:Colors.green),
                   ],
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    MediaButton(onPressed: (){}, title: "View FeedBack",color:Colors.yellow,),
+                    MediaButton(onPressed: (){}, title: "Give FeedBack",color:Colors.blue),
+                  ],
+                ),
+
 
 
               ],
