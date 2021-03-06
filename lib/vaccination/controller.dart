@@ -11,8 +11,8 @@ class MyVaccinesController {
     final token = await SharedHelper.getToken();
     final response = await _netWork.getData(url: 'myvaccinealarms',headers: {
       'Authorization':
-          'Bearer TQPzTToNNw3cq64q6vzdAOt4YWH6ZfpecW2INxHjcd4iXk70hyrBQ64PUismWw8Ij13f7ay7q7rvc8MjrJGlk9GcrA0UE8UKlnXD'
-      //'Bearer $token'
+          // 'Bearer TQPzTToNNw3cq64q6vzdAOt4YWH6ZfpecW2INxHjcd4iXk70hyrBQ64PUismWw8Ij13f7ay7q7rvc8MjrJGlk9GcrA0UE8UKlnXD'
+      'Bearer $token'
     });
     _myVaccineAlarmsModel = MyVaccineAlarmsModel.fromJson(response);
     _myVaccineAlarmsModel.data.removeWhere((element) => element.id == 5);

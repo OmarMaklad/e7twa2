@@ -22,7 +22,7 @@ class _VaccinesAlarmViewState extends State<VaccinesAlarmView> {
   static String vaccineName = 'VaccineName';
   TimeOfDay timeOfDay = TimeOfDay.now();
   TextEditingController name = TextEditingController(text: 'Vaccine Name');
-  TextEditingController date = TextEditingController(text: DateTime.now().toString());
+  TextEditingController date = TextEditingController(text:  DateTime.now().year.toString() + '-' + DateTime.now().month.toString().padLeft(2,'0') + '-' + DateTime.now().day.toString().padLeft(2,'0'));
   TextEditingController time = TextEditingController(text: TimeOfDay.now().hour.toString().padLeft(2,'0') + ':'+TimeOfDay.now().minute.toString().padLeft(2,'0'));
   bool isAm = true;
   bool isLoading = false;
@@ -119,7 +119,7 @@ class _VaccinesAlarmViewState extends State<VaccinesAlarmView> {
                         hours: timeOfDay.hour,
                         minutes: timeOfDay.minute,
                       )), id,x);
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => VaccinationView(),));
+                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => VaccinationView(),),(_)=> false);
                     },
                     color: Colors.lightBlueAccent,
                   ),
