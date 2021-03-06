@@ -18,6 +18,7 @@ class AllChatsList extends StatelessWidget {
           image:"assets/images/doc.png",
               phone: doctorModel.data[index].phone,
               email: doctorModel.data[index].email,
+              id: doctorModel.data[index].id,
               location:"Riyadh",
               spa: doctorModel.data[index].specialization,
         ),

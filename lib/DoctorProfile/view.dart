@@ -2,11 +2,13 @@ import 'package:e7twa2/DoctorProfile/controller.dart';
 import 'package:e7twa2/chat/view.dart';
 import 'package:e7twa2/widgets/customButton.dart';
 import 'package:e7twa2/widgets/customTextFeild.dart';
+import 'package:e7twa2/widgets/loading.dart';
 import 'package:e7twa2/widgets/mediaButton.dart';
 import 'package:e7twa2/widgets/smallButton.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
+import 'model.dart';
 
 class DoctorProfile extends StatefulWidget {
   final String location;
@@ -14,21 +16,31 @@ class DoctorProfile extends StatefulWidget {
   final String phone;
   final String email;
   final String spa;
-
-   DoctorProfile({this.location, this.phone, this.email, this.spa, this.name});
+  final int id;
+   DoctorProfile({this.location, this.phone, this.email, this.spa, this.name, this.id});
   @override
   _DoctorProfileState createState() => _DoctorProfileState();
 }
 
 class _DoctorProfileState extends State<DoctorProfile> {
   DoctorProfileController _doctorProfileController = DoctorProfileController();
-  bool _isLoading = false;
+  DoctorProfileModel _doctorProfileModel;
+  bool _isLoading = true;
+  getData()async{
+    _doctorProfileModel = await _doctorProfileController.getDoctorProfile(widget.id);
+    setState(()=> _isLoading = false);
+  }
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.purpleAccent,
-      body:Stack(
+      body: Stack(
         children: [
           Container(
             height: height*1,
@@ -63,7 +75,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                 ),                 ],
             ),
           ),
-          Padding(
+          _isLoading ? Loading() : Padding(
             padding:  EdgeInsets.only(top: height*.1),
             child: ListView(
               children: [
@@ -75,29 +87,29 @@ class _DoctorProfileState extends State<DoctorProfile> {
                 Container(
                     height: height*.1,
                     child: Image.asset("assets/images/doc.png",fit: BoxFit.contain,)),
-                Text(widget.name,textAlign: TextAlign.center,
+                Text(_doctorProfileModel.data.userName,textAlign: TextAlign.center,
                     style: TextStyle(fontSize:18,fontWeight: FontWeight.bold)),
 
 
                 SizedBox(height: height*.02,),
                 CustomTextField(
                   read: true,
-                  hint: widget.location,
+                  hint: 'Saudi Arabia',
                   dIcon: "assets/images/user.png",
                 ),
                 CustomTextField(
                   read: true,
-                  hint: widget.phone,
+                  hint: _doctorProfileModel.data.phone,
                   dIcon: "assets/images/phone.png",
                 ),
                 CustomTextField(
                   read: true,
-                  hint: widget.email,
+                  hint: _doctorProfileModel.data.email,
                   dIcon: "assets/images/email.png",
                 ),
                 CustomTextField(
                   read: true,
-                  hint: widget.spa,
+                  hint: _doctorProfileModel.data.specialization,
                   dIcon:"assets/images/hed.png",
                 ),
 

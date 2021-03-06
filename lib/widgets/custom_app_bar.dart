@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-appBar(context){
+appBar(context,{pop = true}){
   final height = MediaQuery.of(context).size.height;
   return PreferredSize(child: Container(
     color: Colors.white,
@@ -10,12 +10,12 @@ appBar(context){
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         GestureDetector(
-          onTap: (){
+          onTap: pop ? (){
             Navigator.pop(context);
-          },
+          } : null,
           child: Padding(
             padding:EdgeInsets.only(top:30),
-            child: SizedBox(height:height*.04,child: Image.asset("assets/images/back.png")),
+            child: SizedBox(height:height*.04,child: pop ? Image.asset("assets/images/back.png") : Text('')),
           ),
         ),
         Padding(

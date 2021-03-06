@@ -11,13 +11,15 @@ class DropMenu extends StatelessWidget {
   DropMenu({this.value, this.hint, this.items, this.onChanged, this.valuesAreModels = false, this.onTap});
   @override
   Widget build(BuildContext context) {
+    print(items[0].padiatricianName);
     return GestureDetector(
       onTap: onTap,
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 5),
-        height: sizeFromHeight(context, 16),
+        height: sizeFromHeight(context, 12),
         padding: EdgeInsets.symmetric(horizontal: 15),
         decoration: BoxDecoration(
+          color: Colors.white,
             borderRadius: BorderRadius.circular(50),
             border: Border.all(color: Colors.black26, width: 0.3)),
         child: DropdownButton(
@@ -25,13 +27,13 @@ class DropMenu extends StatelessWidget {
             underline: Text(''),
             iconEnabledColor: Colors.black,
             hint: Text(
-              value == null ? hint : valuesAreModels ? value.name.toString() : value.toString(),
+              value == null ? hint : valuesAreModels ? value.userName.toString() : value.toString(),
               style: TextStyle(color: Colors.black,fontSize: 13),
             ),
             isExpanded: true,
             items: items
                 .map((e) => DropdownMenuItem(
-              child: Text(valuesAreModels ? e.name : e.toString()),
+              child: Text(valuesAreModels ? e.userName : e.toString() ?? 'null'),
               value: e,
             ))
                 .toList(),

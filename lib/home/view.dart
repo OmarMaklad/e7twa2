@@ -8,6 +8,7 @@ import 'package:e7twa2/profile/data/controller.dart';
 import 'package:e7twa2/profile/data/model.dart';
 import 'package:e7twa2/profile/view.dart';
 import 'package:e7twa2/reportsPerceptions/view.dart';
+import 'package:e7twa2/userAppointments/view.dart';
 import 'package:e7twa2/userReports/view.dart';
 import 'package:e7twa2/vaccination/view.dart';
 import 'package:flutter/material.dart';
@@ -171,7 +172,7 @@ class _HomeViewState extends State<HomeView> {
   List content = [
     ['Find a doctor','findADoctor',FiendDoctor()],
     ['Vaccinations','vaccinations',VaccinationView()],
-    ['Appointments','appointments',AppointmentsScheduleView()],
+    ['Appointments','appointments',UserAppointmentsView()],
     ['Perceptions','perceptions',PerceptionsView()],
     ['Reports','reports',UserReports()],
     ['Articles','articles',Articles()],

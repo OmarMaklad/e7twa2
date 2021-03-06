@@ -9,8 +9,9 @@ class ChatsCard extends StatelessWidget {
   final String location;
   final String phone;
   final String email;
+  final int id;
   final String spa;
-   ChatsCard({ this.name, this.image, this.location, this.phone, this.email, this.spa}) ;
+   ChatsCard({ this.name, this.image, this.location, this.phone, this.email, this.spa, this.id}) ;
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -20,6 +21,7 @@ class ChatsCard extends StatelessWidget {
         phone: phone,
         name: name,
         email: email,
+        id: id,
         location: location,
       ))),
       child: Container(
