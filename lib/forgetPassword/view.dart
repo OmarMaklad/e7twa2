@@ -51,7 +51,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 ),
                 Padding(
                   padding:EdgeInsets.only(top:30),
-                  child: SizedBox(height:height*.03,child: Image.asset("assets/images/flag.png")),
+                  child: SizedBox(height:height*.03,child: Image.asset("assets/images/flag.PNG")),
                 ),                 ],
             ),
           ),

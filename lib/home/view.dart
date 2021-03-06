@@ -1,3 +1,4 @@
+import 'package:e7twa2/Articles/view.dart';
 import 'package:e7twa2/allChats/view.dart';
 import 'package:e7twa2/appointmentsSchedule/view.dart';
 import 'package:e7twa2/constants.dart';
@@ -7,6 +8,7 @@ import 'package:e7twa2/profile/data/controller.dart';
 import 'package:e7twa2/profile/data/model.dart';
 import 'package:e7twa2/profile/view.dart';
 import 'package:e7twa2/reportsPerceptions/view.dart';
+import 'package:e7twa2/userReports/view.dart';
 import 'package:e7twa2/vaccination/view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -71,7 +73,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
                 Padding(
                   padding:EdgeInsets.only(top:30),
-                  child: SizedBox(height:height*.03,child: Image.asset("assets/images/flag.png")),
+                  child: SizedBox(height:height*.03,child: Image.asset("assets/images/flag.PNG")),
                 ),                 ],
             ),
           ),
@@ -171,8 +173,8 @@ class _HomeViewState extends State<HomeView> {
     ['Vaccinations','vaccinations',VaccinationView()],
     ['Appointments','appointments',AppointmentsScheduleView()],
     ['Perceptions','perceptions',PerceptionsView()],
-    ['Reports','reports',ReportsPerceptionsView()],
-    ['Articles','articles',Text('data')],
+    ['Reports','reports',UserReports()],
+    ['Articles','articles',Articles()],
   ];
 
   Widget _babyItem(String title,String image,Widget page)=> GestureDetector(

@@ -1,30 +1,30 @@
 import 'package:e7twa2/Bills/view.dart';
+import 'package:e7twa2/drProfile/state/state.dart';
 import 'package:e7twa2/profile/cubit/cubit.dart';
 import 'package:e7twa2/profile/data/controller.dart';
 import 'package:e7twa2/profile/data/model.dart';
-import 'package:e7twa2/profile/state/state.dart';
 import 'package:e7twa2/welcome/view.dart';
 import 'package:e7twa2/widgets/customButton.dart';
 import 'package:e7twa2/widgets/customTextFeild.dart';
-import 'package:e7twa2/widgets/smallButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../constants.dart';
+import 'cubit/cubit.dart';
 
-class Profile extends StatefulWidget {
+class DrProfile extends StatefulWidget {
   @override
-  _ProfileState createState() => _ProfileState();
+  _DrProfileState createState() => _DrProfileState();
 }
 
-class _ProfileState extends State<Profile> {
+class _DrProfileState extends State<DrProfile> {
   int value=0;
   ProfileController _profileController = ProfileController();
   ProfileModel _profileModel=ProfileModel();
   bool loading = true;
   void _getProfile ()async{
-    _profileModel = await _profileController.getProfile();
+    _profileModel = await _profileController.getDrProfile();
     setState(() {
       loading= false;
     });
@@ -39,7 +39,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-    final cubit = EditProfileCubit.get(context);
+    final cubit = EditDrCubit.get(context);
     return Scaffold(
       backgroundColor: Colors.purpleAccent,
       body:Stack(
@@ -78,12 +78,12 @@ class _ProfileState extends State<Profile> {
             ),
           ),
           loading?
-              Center(
-                child: SpinKitChasingDots(
-                  size: 40,
-                  color: kPrimaryColor,
-                ),
-              ):Padding(
+          Center(
+            child: SpinKitChasingDots(
+              size: 40,
+              color: kPrimaryColor,
+            ),
+          ):Padding(
             padding:  EdgeInsets.only(top: height*.1),
             child: ListView(
               children: [
@@ -97,17 +97,17 @@ class _ProfileState extends State<Profile> {
 
                 SizedBox(height: height*.02,),
                 CustomTextField(
-                  hint:_profileModel.data.babyName,
-                  dIcon: "assets/images/baby.png",
+                  hint:_profileModel.data.padiatricianName,
+                  dIcon: "assets/images/doc.png",
                   onsave: (v){
-                    cubit.babyName=v;
+                    cubit.doctorName=v;
                   },
                 ),
                 CustomTextField(
                   hint: _profileModel.data.userName,
                   dIcon: "assets/images/user.png",
                   onsave: (v){
-                    cubit.parentName=v;
+                    cubit.userName=v;
                   },
                 ),
                 CustomTextField(
@@ -125,15 +125,15 @@ class _ProfileState extends State<Profile> {
                   },
                 ),
                 CustomTextField(
-                  hint: _profileModel.data.dateOfBirth,
-                  dIcon: "assets/images/date.png",
+                  hint: _profileModel.data.specialization,
+                  dIcon: "assets/images/hed.png",
                   onsave: (v){
-                    cubit.date=v;
+                    cubit.specialization=v;
                   },
                 ),
                 CustomTextField(
                   hint: _profileModel.data.sex,
-                  dIcon: "assets/images/baby.png",
+                  dIcon: "assets/images/doc.png",
                 ),
                 SizedBox(height: height*.02,),
                 Padding(
@@ -148,10 +148,10 @@ class _ProfileState extends State<Profile> {
                               onChanged: (val){
                                 setState(() {
                                   value=val;
-                                  cubit.sex = "boy";
+                                  cubit.sex = "male";
                                 });
                               }),
-                          Image.asset("assets/images/boy.png")
+                         Text("Male"),
                         ],
                       ),
                       Row(
@@ -162,10 +162,10 @@ class _ProfileState extends State<Profile> {
                               onChanged: (val){
                                 setState(() {
                                   value=val;
-                                  cubit.sex = "girl";
+                                  cubit.sex = "female";
                                 });
                               }),
-                          Image.asset("assets/images/baby.png")
+                          Text("Female"),
                         ],
                       ),
                     ],
@@ -173,22 +173,19 @@ class _ProfileState extends State<Profile> {
                 ),
 
                 SizedBox(height: height*.02,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                  BlocConsumer<EditProfileCubit,EditState>(
-                      listener: (_,state){
-                        if(state is EditErrorState )
-                          Scaffold.of(_).showSnackBar(SnackBar(backgroundColor: kPrimaryColor,content: Text(state.error,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14
-                            ),)));
-                        if(state is EditSuccessState ){
-                          _getProfile();
-                        }
-                      },
+                BlocConsumer<EditDrCubit,EditDrState>(
+                    listener: (_,state){
+                      if(state is EditErrorState )
+                        Scaffold.of(_).showSnackBar(SnackBar(backgroundColor: kPrimaryColor,content: Text(state.error,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14
+                          ),)));
+                      if(state is EditSuccessState ){
+                        _getProfile();
+                      }
+                    },
                     builder:(_,state){
                       return state is EditLoadingState?
                       Center(
@@ -196,18 +193,14 @@ class _ProfileState extends State<Profile> {
                           size: 40,
                           color: kPrimaryColor,
                         ),
-                      ): SmallButton(onPressed:(){
-                        cubit.editProfile();
+                      ): CustomButton(onPressed:(){
+                        cubit.editDr();
                       }, title: "Update",color: Colors.purpleAccent,);
                     }
-                  ),
-                  SmallButton(onPressed:(){
-                    Navigator.push(context, MaterialPageRoute(builder:(_)=> BillsView()));
-                  }, title: "Bills",color: Colors.blue,),
-                ],),
-                  CustomButton(onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder:(_)=> WelcomeView()));
-                    }, title: "Loge Out",color: kPrimaryColor,)
+                ),
+                CustomButton(onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder:(_)=> WelcomeView()));
+                }, title: "Loge Out",color: kPrimaryColor,)
 
               ],
 

@@ -1,4 +1,5 @@
 import 'package:e7twa2/allChats/view.dart';
+import 'package:e7twa2/profile/cubit/cubit.dart';
 import 'package:e7twa2/reportsPerceptions/view.dart';
 import 'package:e7twa2/signIn/bloc/cubit.dart';
 import 'package:e7twa2/signUp/bloc/cubit.dart';
@@ -7,6 +8,7 @@ import 'package:e7twa2/welcome/view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'drProfile/cubit/cubit.dart';
 import 'fiendDoctor/view.dart';
 
 void main() {
@@ -22,6 +24,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_)=>LoginControllerCubit()),
         BlocProvider(create: (_)=>SignUpControllerCubit()),
         BlocProvider(create: (_)=>VaControllerCubit()),
+        BlocProvider(create: (_)=>EditProfileCubit()),
+        BlocProvider(create: (_)=>EditDrCubit()),
 
       ],
       child: MaterialApp(

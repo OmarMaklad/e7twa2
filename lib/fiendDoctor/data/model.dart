@@ -1,19 +1,24 @@
-class ProfileModel {
+class DoctorModel {
   String msg;
-  Data data;
+  List<Data> data;
 
-  ProfileModel({this.msg, this.data});
+  DoctorModel({this.msg, this.data});
 
-  ProfileModel.fromJson(Map<String, dynamic> json) {
+  DoctorModel.fromJson(Map<String, dynamic> json) {
     msg = json['msg'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    if (json['data'] != null) {
+      data = new List<Data>();
+      json['data'].forEach((v) {
+        data.add(new Data.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['msg'] = this.msg;
     if (this.data != null) {
-      data['data'] = this.data.toJson();
+      data['data'] = this.data.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -22,15 +27,15 @@ class ProfileModel {
 class Data {
   int id;
   String userName;
-  String babyName;
+  Null babyName;
   String phone;
   String email;
-  String dateOfBirth;
+  Null dateOfBirth;
   String sex;
   String type;
-  var padiatricianName;
-  var specialization;
-  var emailVerifiedAt;
+  String padiatricianName;
+  String specialization;
+  Null emailVerifiedAt;
   String apiToken;
   int confirm;
   String createdAt;

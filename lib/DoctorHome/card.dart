@@ -1,19 +1,21 @@
 
+import 'package:e7twa2/DrAppoint/view.dart';
 import 'package:e7twa2/chat/view.dart';
 import 'package:flutter/material.dart';
 
 
-class ChatsCard extends StatelessWidget {
+class DrHomeCard extends StatelessWidget {
   final String name;
   final String image;
   final String date;
   final bool arrow;
-   ChatsCard({ this.name, this.image, this.date, this.arrow}) ;
+  final Widget route;
+  DrHomeCard({ this.name, this.image, this.date, this.arrow, this.route}) ;
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     return GestureDetector(
-      onTap:()=> Navigator.push(context, MaterialPageRoute(builder: (_)=>ChatView(date: date,name: name,))),
+      onTap:()=>arrow==true? Null:Navigator.push(context, MaterialPageRoute(builder: (_)=>route)),
       child: Container(
         margin: EdgeInsets.symmetric(horizontal:20),
         padding: EdgeInsets.symmetric(horizontal:10),
@@ -29,16 +31,22 @@ class ChatsCard extends StatelessWidget {
             Row(
               children: [
                 SizedBox(
-                  height: height*.1,
+                    height: height*.1,
                     child: Image.asset(image)),
                 SizedBox(width: 15,),
-                Text(name,style: TextStyle(color:Colors.black,fontSize: 16, fontWeight: FontWeight.bold,),),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(name,style: TextStyle(color:Colors.black,fontSize: 16, fontWeight: FontWeight.bold,),),
+                    date==null?SizedBox():Text(date,style: TextStyle(color:Colors.black,fontSize: 14, fontWeight: FontWeight.w600,),),
+                  ],
+                ),
 
 
 
               ],
             ),
-           arrow==false?SizedBox():  Icon(Icons.keyboard_arrow_right
+            arrow==false?SizedBox():  Icon(Icons.edit
               ,size:30,),
           ],
         ),

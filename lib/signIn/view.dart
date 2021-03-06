@@ -1,3 +1,4 @@
+import 'package:e7twa2/DoctorHome/view.dart';
 import 'package:e7twa2/DoctorProfile/view.dart';
 import 'package:e7twa2/constants.dart';
 import 'package:e7twa2/forgetPassword/view.dart';
@@ -24,7 +25,7 @@ class _SignInState extends State<SignIn> {
 
   void _checkType()async{
     SharedPreferences _prefs = await SharedPreferences.getInstance();
-      _prefs.getString("type")=="padiatrician"?Navigator.push(context, MaterialPageRoute(builder:(_)=>DoctorProfile() ))
+      _prefs.getString("type")=="padiatrician"?Navigator.push(context, MaterialPageRoute(builder:(_)=>DrHome() ))
           : Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder:(_)=>HomeView() ),(_)=> false);
   }
   @override
@@ -63,7 +64,7 @@ class _SignInState extends State<SignIn> {
                SizedBox(height:height*.9,child: Image.asset("assets/images/logo.png")),
                Padding(
                  padding:EdgeInsets.only(top:30),
-                 child: SizedBox(height:height*.03,child: Image.asset("assets/images/flag.png")),
+                 child: SizedBox(height:height*.03,child: Image.asset("assets/images/flag.PNG")),
                ),                 ],
            ),
          ),

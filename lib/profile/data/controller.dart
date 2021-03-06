@@ -23,4 +23,22 @@ class ProfileController {
       return  _profileModel;
     }
   }
+  Future<ProfileModel> getDrProfile() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    print(_prefs.getString("api_token"));
+    var data = await netWork.getData(url: 'doctorprofile',
+        headers: {
+          'Accept':'application/json',
+          "Authorization":"Bearer ${_prefs.getString("api_token")}",
+        });
+    print(data);
+    if (data == null || data == "internet") {
+      _profileModel = null;
+      return  _profileModel;
+    } else {
+      _profileModel = ProfileModel.fromJson(data);
+      print(data);
+      return  _profileModel;
+    }
+  }
 }
