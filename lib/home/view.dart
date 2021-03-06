@@ -1,8 +1,13 @@
+import 'package:e7twa2/allChats/view.dart';
+import 'package:e7twa2/appointmentsSchedule/view.dart';
 import 'package:e7twa2/constants.dart';
 import 'package:e7twa2/fiendDoctor/view.dart';
+import 'package:e7twa2/perceptions/view.dart';
 import 'package:e7twa2/profile/data/controller.dart';
 import 'package:e7twa2/profile/data/model.dart';
 import 'package:e7twa2/profile/view.dart';
+import 'package:e7twa2/reportsPerceptions/view.dart';
+import 'package:e7twa2/vaccination/view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -53,7 +58,7 @@ class _HomeViewState extends State<HomeView> {
               children: [
                 GestureDetector(
                   onTap: (){
-                    Navigator.pop(context);
+                    Navigator.push(context,MaterialPageRoute(builder: (context) => AllChats(),));
                   },
                   child: Padding(
                     padding:EdgeInsets.only(top:30),
@@ -146,33 +151,12 @@ class _HomeViewState extends State<HomeView> {
                         crossAxisSpacing:2,
                         childAspectRatio: 2.1/1.5
                     ),
-                    itemBuilder:(ctx,index)=>GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (_)=>FiendDoctor()));
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal:30),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(15)
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Container(
-                                  height: height*.1,
-                                  child: Image.asset("assets/images/baby.png",fit: BoxFit.cover,)),
-                              Text("Name", style: TextStyle(fontSize:14,fontWeight: FontWeight.w400,)),
-
-                            ],
-                          ),
-
-                        ),
-                      ),
+                    itemBuilder:(ctx,index)=> _babyItem(
+                      content[index][0],
+                      content[index][1],
+                      content[index][2],
                     ),
-                    itemCount: 6),)
+                    itemCount: content.length),)
               ],
             ),
           ),
@@ -181,4 +165,42 @@ class _HomeViewState extends State<HomeView> {
       ),
     );
   }
+
+  List content = [
+    ['Find a doctor','findADoctor',FiendDoctor()],
+    ['Vaccinations','vaccinations',VaccinationView()],
+    ['Appointments','appointments',AppointmentsScheduleView()],
+    ['Perceptions','perceptions',PerceptionsView()],
+    ['Reports','reports',ReportsPerceptionsView()],
+    ['Articles','articles',Text('data')],
+  ];
+
+  Widget _babyItem(String title,String image,Widget page)=> GestureDetector(
+    onTap: (){
+      Navigator.push(context, MaterialPageRoute(builder: (_)=> page));
+    },
+    child: Padding(
+      padding: EdgeInsets.symmetric(horizontal:30),
+      child: Container(
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(15)
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Expanded(
+              child: Container(
+                  // height: height*.1,
+                  child: Image.asset("assets/images/$image.png",fit: BoxFit.cover,)),
+            ),
+            Text(title, style: TextStyle(fontSize:14,fontWeight: FontWeight.w400,)),
+
+          ],
+        ),
+
+      ),
+    ),
+  );
 }

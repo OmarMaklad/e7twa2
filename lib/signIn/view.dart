@@ -25,7 +25,7 @@ class _SignInState extends State<SignIn> {
   void _checkType()async{
     SharedPreferences _prefs = await SharedPreferences.getInstance();
       _prefs.getString("type")=="padiatrician"?Navigator.push(context, MaterialPageRoute(builder:(_)=>DoctorProfile() ))
-          : Navigator.push(context, MaterialPageRoute(builder:(_)=>HomeView() ));
+          : Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder:(_)=>HomeView() ),(_)=> false);
   }
   @override
   Widget build(BuildContext context) {

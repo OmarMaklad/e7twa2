@@ -1,5 +1,7 @@
 import 'package:e7twa2/allChats/view.dart';
+import 'package:e7twa2/home/view.dart';
 import 'package:e7twa2/reportsPerceptions/view.dart';
+import 'package:e7twa2/shared_preferences.dart';
 import 'package:e7twa2/signIn/bloc/cubit.dart';
 import 'package:e7twa2/signUp/bloc/cubit.dart';
 import 'package:e7twa2/vaCode/bloc/cubit.dart';
@@ -22,11 +24,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_)=>LoginControllerCubit()),
         BlocProvider(create: (_)=>SignUpControllerCubit()),
         BlocProvider(create: (_)=>VaControllerCubit()),
-
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: WelcomeView(),
+        home: SharedHelper.getId() != null ? HomeView() : WelcomeView(),
       ),
     );
   }
