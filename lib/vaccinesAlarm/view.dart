@@ -1,5 +1,6 @@
 import 'package:android_alarm_manager/android_alarm_manager.dart';
 import 'package:e7twa2/constants.dart';
+import 'package:e7twa2/home/view.dart';
 import 'package:e7twa2/local_notification.dart';
 import 'package:e7twa2/vaccination/view.dart';
 import 'package:e7twa2/vaccinesAlarm/controller.dart';
@@ -119,7 +120,7 @@ class _VaccinesAlarmViewState extends State<VaccinesAlarmView> {
                         hours: timeOfDay.hour,
                         minutes: timeOfDay.minute,
                       )), id,x);
-                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => VaccinationView(),),(_)=> false);
+                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => HomeView(),),(_)=> false);
                     },
                     color: Colors.lightBlueAccent,
                   ),
