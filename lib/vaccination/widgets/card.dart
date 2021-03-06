@@ -2,20 +2,26 @@ import 'package:e7twa2/constants.dart';
 import 'package:flutter/material.dart';
 
 class VaccinationCard extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final String image;
+  VaccinationCard({this.title,this.image,this.subtitle});
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 15),
+      margin: EdgeInsets.symmetric(vertical: 10),
       padding: EdgeInsets.all(15),
       child: Row(
         children: [
-          Icon(Icons.notifications,color: kRoundColor,size: 30,),
+          image == null ?
+          Icon(Icons.notifications,color: kRoundColor,size: 30,) :
+              Image.asset('assets/images/$image.png',width: 50,),
           SizedBox(width: 10,),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('IPV',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
-              Text('20/2/2020',style: TextStyle(fontSize: 12),),
+              Text(title ?? 'IPV',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+              Text(subtitle ?? '20/2/2020',style: TextStyle(fontSize: 12),),
             ],
           ),
         ],
