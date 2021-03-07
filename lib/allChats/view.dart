@@ -1,3 +1,5 @@
+import 'package:e7twa2/widgets/custom_app_bar.dart';
+import 'package:e7twa2/widgets/gradient_bg.dart';
 import 'package:flutter/material.dart';
 import 'chatsList.dart';
 import 'controller/controller.dart';
@@ -28,15 +30,16 @@ class _AllChatsState extends State<AllChats> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text("Message",style: TextStyle(
-          fontFamily: "dinnextl bold",
-          fontSize:24,),)
-      ),
-      body:loading?
+      appBar: appBar(context),
+      body: Container(
+        height: double.infinity,
+        child: GradientBackground(
+          child: loading?
           Center(
             child:CircularProgressIndicator(),
           ): AllChatsList(allChatsModel: _allChatsModel,),
+        ),
+      ),
     );
   }
 }

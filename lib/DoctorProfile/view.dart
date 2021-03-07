@@ -124,15 +124,15 @@ class _DoctorProfileState extends State<DoctorProfile> {
                       setState(() {
                         _isLoading = true;
                       });
-                      await _doctorProfileController.startChat();
+                      final id = await _doctorProfileController.startChat(_doctorProfileModel.data.id);
                       setState(() {
                         _isLoading = false;
                       });
-                      // Navigator.push(context, MaterialPageRoute(builder: (context) => ChatView(
-                      //   name: ,
-                      //   date: ,
-                      //   chatId: ,
-                      // ),));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ChatView(
+                        name: _doctorProfileModel.data.padiatricianName,
+                        date: _doctorProfileModel.data.createdAt,
+                        chatId: id,
+                      ),));
                     }, title: "Chat",color:Colors.green),
                   ],
                 ),

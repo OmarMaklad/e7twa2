@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:e7twa2/chat/controller.dart';
+import 'package:e7twa2/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -36,27 +37,34 @@ class _SendMessageState extends State<SendMessage> {
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Row(
         children: [
-          IconButton(
-            icon: Icon(Icons.camera_alt),
-            onPressed: ()async{
-              final pickedFile = await ImagePicker().getImage(source: ImageSource.gallery);
-              image = File(pickedFile.path);
-              setState(() {
-                _isLoading = true;
-              });
-              if(image != null)
-              await _chatController.sendMessage(
-                file: image,
-                conversationId: widget.chatId,
-                senderId: widget.senderId,
-                receiverId: widget.receiverId,
-              );
-              setState((){
-                _isLoading = false;
-              });
-              widget.afterSendingMessage();
-            } ,
+          Container(
+            child: IconButton(
+              icon: Icon(Icons.camera_alt,color: Colors.white,),
+              onPressed: ()async{
+                final pickedFile = await ImagePicker().getImage(source: ImageSource.gallery);
+                image = File(pickedFile.path);
+                setState(() {
+                  _isLoading = true;
+                });
+                if(image != null)
+                await _chatController.sendMessage(
+                  file: image,
+                  conversationId: widget.chatId,
+                  senderId: widget.senderId,
+                  receiverId: widget.receiverId,
+                );
+                setState((){
+                  _isLoading = false;
+                });
+                widget.afterSendingMessage();
+              } ,
+            ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              color: kPrimaryColor,
+            ),
           ),
+          SizedBox(width: 10  ,),
           Expanded(
             child: CustomTextField(
               hint: "message",
@@ -85,7 +93,7 @@ class _SendMessageState extends State<SendMessage> {
             ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
-              color: Colors.deepOrange,
+              color: kPrimaryColor,
             ),
           ),
         ],

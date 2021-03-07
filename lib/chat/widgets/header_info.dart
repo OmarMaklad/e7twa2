@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../constants.dart';
+
 
 class HeaderInfo extends StatelessWidget {
   final String date;
@@ -9,23 +11,20 @@ class HeaderInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
+      margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+      height: AppBar().preferredSize.height,
       padding: EdgeInsets.all(10),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Icon(Icons.person_outline_rounded),
-          CircleAvatar(
-            backgroundColor: Colors.transparent,
-            // backgroundImage: NetworkImage(image),
-            radius: 20,
-          ),
-          SizedBox(width: 10,),
-          Expanded(child: Text(name,softWrap: false,overflow: TextOverflow.ellipsis,)),
-          Text(date,style: TextStyle(fontSize: 12),),
+          IconButton(icon: Icon(Icons.arrow_back_ios),onPressed: ()=> Navigator.pop(context),),
+          Text(name,softWrap: false,overflow: TextOverflow.ellipsis,style: TextStyle(fontWeight: FontWeight.w900,fontSize: 22),),
+          IconButton(icon: Icon(Icons.arrow_back_ios,color: Colors.transparent,),onPressed: (){},),
+          // Text(date,style: TextStyle(fontSize: 12),),
         ],
       ),
       decoration: BoxDecoration(
-          color: Colors.deepOrange,
+          color: kAccentColor,
           borderRadius: BorderRadius.circular(8)
       ),
     );

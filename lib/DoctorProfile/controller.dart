@@ -8,12 +8,9 @@ class DoctorProfileController {
   DoctorProfileModel _doctorProfileModel = DoctorProfileModel();
 
   Future<DoctorProfileModel> getDoctorProfile(int id)async{
-    final token = SharedHelper.getToken();
+    final token =await SharedHelper.getToken();
     final response = await _netWork.postData(
-      headers: {
-        //TODO:
-        'Authorization': 'Bearer TQPzTToNNw3cq64q6vzdAOt4YWH6ZfpecW2INxHjcd4iXk70hyrBQ64PUismWw8Ij13f7ay7q7rvc8MjrJGlk9GcrA0UE8UKlnXD'
-      },
+      headers: {'Authorization': 'Bearer $token'},
       url: 'showdoctorprofile',
       formData: FormData.fromMap({
         'padiatrician_id': id
@@ -24,16 +21,15 @@ class DoctorProfileController {
     return _doctorProfileModel;
   }
 
-  Future<void> startChat()async{
+  Future<int> startChat(int docId)async{
+    final id = await SharedHelper.getId();
     final formData = FormData.fromMap({
-      'sender_id': 2,
-      'receiver_id': 4,
+      'sender_id': id,
+      'receiver_id': docId,
       'massage': 'Hello'
     });
     final response = await _netWork.postData(url: 'addConversation',formData: formData);
-    print(response);
-    //TODO
-    // return ;
+    return response['data'][0]['conversation_id'];
   }
 
 }

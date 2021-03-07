@@ -1,3 +1,4 @@
+import 'package:e7twa2/constants.dart';
 import 'package:flutter/material.dart';
 
 class MessageBubble extends StatelessWidget {
@@ -22,16 +23,16 @@ class MessageBubble extends StatelessWidget {
         children: [
           (image == null) ?  Text(message,
             style: TextStyle(
-            color: isMe ? Colors.white : Colors.black,
+            color: Colors.black,
             fontWeight: FontWeight.w700,
             ),
-          ) : Image.network('http://ehtwa.site/api/'+image),
+          ) : Image.network(imagesUrl + image),
           SizedBox(height: 10,),
           Align(
             alignment: Alignment.bottomLeft,
             child: Text(date,style: TextStyle(
               fontWeight: isMe ? FontWeight.w200 : FontWeight.w400,
-              color: isMe ? Colors.white : Colors.black,
+              color:  Colors.black,
               fontSize: 12,
             ),
               textDirection: TextDirection.ltr,
@@ -40,7 +41,7 @@ class MessageBubble extends StatelessWidget {
         ],
       ),
       decoration: BoxDecoration(
-        color: isMe ? Colors.deepOrange : Colors.white ,
+        color: isMe ? kPrimaryColor : Colors.white ,
         borderRadius: BorderRadius.circular(8)
       ),
     );

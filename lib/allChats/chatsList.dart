@@ -14,8 +14,8 @@ class AllChatsList extends StatelessWidget {
         itemBuilder:(ctx,index)=>
             ChatsCard(
           name: allChatsModel.data[index].sender.userName,
-          date: allChatsModel.data[index].sender.createdAt,
-          // image: allChatsModel.data[index].sender.ph,
+          date: allChatsModel.data[index].sender.createdAt,chatId: allChatsModel.data[index].id,
+          image: 'assets/images/doc.png',
         ),
         shrinkWrap: true,
         scrollDirection: Axis.vertical,

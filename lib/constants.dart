@@ -7,6 +7,8 @@ const Color kBackgroundColor = Color(0xFFF7F7F7);
 const Color kHomeColor = Color(0xFFF9F9F9);
 const Color kRoundColor = Color(0xFFFEBD2F);
 
+const String imagesUrl = 'http://ehtwa.jeeet.net/public/';
+
 //constant functions
 double sizeFromHeight(BuildContext context, double fraction,{bool removeAppBarSize = true}) {
   double deviceHeight = MediaQuery.of(context).size.height;
