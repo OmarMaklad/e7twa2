@@ -68,7 +68,6 @@ class _SignUpState extends State<SignUp> {
               key: _globalKey,
               child: ListView(
                 children: [
-
                   Padding(
                     padding:  EdgeInsets.symmetric(horizontal: 30,vertical: 20),
                     child: Text("Great Your account",style: TextStyle(fontSize:24,fontWeight: FontWeight.bold)),

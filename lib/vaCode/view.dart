@@ -1,3 +1,4 @@
+import 'package:e7twa2/DoctorHome/view.dart';
 import 'package:e7twa2/DoctorProfile/view.dart';
 import 'package:e7twa2/constants.dart';
 import 'package:e7twa2/home/view.dart';
@@ -20,7 +21,7 @@ class VaCode extends StatefulWidget {
 class _VaCodeState extends State<VaCode> {
   void _checkType()async{
     SharedPreferences _prefs = await SharedPreferences.getInstance();
-    _prefs.getString("type")=="padiatrician"?Navigator.push(context, MaterialPageRoute(builder:(_)=>DoctorProfile() ))
+    _prefs.getString("type")=="padiatrician"?Navigator.push(context, MaterialPageRoute(builder:(_)=>DrHome() ))
         : Navigator.push(context, MaterialPageRoute(builder:(_)=>HomeView() ));
   }
   GlobalKey<FormState>_globalKey =GlobalKey<FormState>();
