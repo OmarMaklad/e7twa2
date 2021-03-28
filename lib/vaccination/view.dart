@@ -16,13 +16,14 @@ class VaccinationView extends StatefulWidget {
 class _VaccinationViewState extends State<VaccinationView> {
   bool _isLoading = true;
   MyVaccineAlarmsModel _myVaccineAlarmsModel;
+  MyVaccinesController myVaccinesController = MyVaccinesController();
   @override
   void initState() {
     getData();
     super.initState();
   }
   getData()async{
-    _myVaccineAlarmsModel = await MyVaccinesController().getVaccines();
+    _myVaccineAlarmsModel = await myVaccinesController.getVaccines();
     setState(()=> _isLoading = false);
   }
   @override
@@ -42,6 +43,11 @@ class _VaccinationViewState extends State<VaccinationView> {
               Expanded(child: ListView.builder(
                 itemCount: _myVaccineAlarmsModel.data.length,
                 itemBuilder: (context, index) => VaccinationCard(
+                  onTap: ()async{
+                    setState(()=> _isLoading = true);
+                    await myVaccinesController.delete(id: _myVaccineAlarmsModel.data[index].id);
+                    getData();
+                  },
                 image: 'vaccinations',
                 title: _myVaccineAlarmsModel.data[index].vaccine,
                 subtitle: _myVaccineAlarmsModel.data[index].date + ' / ' + _myVaccineAlarmsModel.data[index].time,

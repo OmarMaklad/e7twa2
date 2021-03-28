@@ -1,6 +1,7 @@
 import 'package:e7twa2/medicineAlarm/view.dart';
 import 'package:e7twa2/perceptions/controller.dart';
 import 'package:e7twa2/perceptions/model.dart';
+import 'package:e7twa2/vaccination/controller.dart';
 import 'package:e7twa2/vaccination/widgets/card.dart';
 import 'package:e7twa2/widgets/custom_app_bar.dart';
 import 'package:e7twa2/widgets/gradient_bg.dart';
@@ -41,6 +42,11 @@ class _PerceptionsViewState extends State<PerceptionsView> {
             Expanded(child: ListView.builder(
               itemCount: _myMedicineAlarmsModel.data.length,
               itemBuilder: (context, index) => VaccinationCard(
+                onTap: ()async{
+                  setState(()=> _isLoading = true);
+                  await MyVaccinesController().delete(id: _myMedicineAlarmsModel.data[index].id,vaccine: false);
+                  getData();
+                },
                 image: 'perceptions',
                 title: '${_myMedicineAlarmsModel.data[index].days} Day',
                 subtitle: _myMedicineAlarmsModel.data[index].startDate + ' / ' + _myMedicineAlarmsModel.data[index].endDate,

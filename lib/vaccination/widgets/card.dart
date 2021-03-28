@@ -27,6 +27,11 @@ class VaccinationCard extends StatelessWidget {
                 Text(subtitle ?? '20/2/2020',style: TextStyle(fontSize: 12),),
               ],
             ),
+            Spacer(),
+            IconButton(
+              icon: Icon(Icons.delete,color: Colors.red,),
+              onPressed: onTap,
+            ),
           ],
         ),
         decoration: BoxDecoration(
