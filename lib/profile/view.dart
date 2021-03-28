@@ -94,7 +94,8 @@ class _ProfileState extends State<Profile> {
                 ),
                 Container(
                     height: height*.1,
-                    child: Image.asset("assets/images/baby.png",fit: BoxFit.contain,)),
+                    child: Image.asset(_profileModel.data.sex == "girl"?"assets/images/baby.png":
+                    "assets/images/boy.png",fit: BoxFit.contain,)),
 
                 SizedBox(height: height*.02,),
                 CustomTextField(
@@ -128,9 +129,17 @@ class _ProfileState extends State<Profile> {
                 CustomTextField(
                   hint: _profileModel.data.dateOfBirth,
                   dIcon: "assets/images/date.png",
-                  onsave: (val){
-                    cubit.date=val;
+                  onTap: ()async{
+                    final picked = await showDatePicker(context: context,
+                        initialDate: DateTime.now(), firstDate: DateTime.utc(2000), lastDate: DateTime.now().add(Duration(days: 7)));
+                    if(picked != null){
+                      setState(() {
+                        cubit.date = picked.year.toString() + '-' + picked.month.toString().padLeft(2,'0') + '-' + picked.day.toString().padLeft(2,'0');
+
+                      });
+                    }
                   },
+                 read: true,
                 ),
                 CustomTextField(
                   hint: _profileModel.data.sex,
@@ -212,7 +221,7 @@ class _ProfileState extends State<Profile> {
                 ],),
                 CustomButton(onPressed: (){
                   Navigator.push(context, MaterialPageRoute(builder: (_)=>SignIn()));
-                }, title: "Loge Out",color: kPrimaryColor,)
+                }, title: "Log Out",color: kPrimaryColor,)
 
               ],
 

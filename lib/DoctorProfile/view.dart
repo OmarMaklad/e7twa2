@@ -1,5 +1,6 @@
 import 'package:e7twa2/DoctorProfile/controller.dart';
 import 'package:e7twa2/chat/view.dart';
+import 'package:e7twa2/makeAppointment/view.dart';
 import 'package:e7twa2/widgets/customButton.dart';
 import 'package:e7twa2/widgets/customTextFeild.dart';
 import 'package:e7twa2/widgets/loading.dart';
@@ -119,7 +120,9 @@ class _DoctorProfileState extends State<DoctorProfile> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    MediaButton(onPressed: (){}, title: "Appointment",color:Colors.deepPurple,),
+                    MediaButton(onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => MakeAppointmentView()));
+                    }, title: "Appointment",color:Colors.deepPurple,),
                     MediaButton(onPressed: ()async{
                       setState(() {
                         _isLoading = true;

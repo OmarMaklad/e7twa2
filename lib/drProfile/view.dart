@@ -93,7 +93,7 @@ class _DrProfileState extends State<DrProfile> {
                 ),
                 Container(
                     height: height*.1,
-                    child: Image.asset("assets/images/baby.png",fit: BoxFit.contain,)),
+                    child: Image.asset("assets/images/doc.png",fit: BoxFit.contain,)),
 
                 SizedBox(height: height*.02,),
                 CustomTextField(
@@ -200,7 +200,7 @@ class _DrProfileState extends State<DrProfile> {
                 ),
                 CustomButton(onPressed: (){
                   Navigator.push(context, MaterialPageRoute(builder:(_)=> WelcomeView()));
-                }, title: "Loge Out",color: kPrimaryColor,)
+                }, title: "Log Out",color: kPrimaryColor,)
 
               ],
 

@@ -13,6 +13,8 @@ import 'package:e7twa2/userReports/view.dart';
 import 'package:e7twa2/vaccination/view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeView extends StatefulWidget {
 
@@ -30,7 +32,9 @@ class _HomeViewState extends State<HomeView> {
       loading= false;
     });
   }
-
+  String time;
+  String time2;
+  GetStorage box = GetStorage();
   @override
   void initState() {
     _getProfile();
@@ -104,26 +108,58 @@ class _HomeViewState extends State<HomeView> {
                             children: [
                               Container(
                                 height: height*.1,
-                                  child: Image.asset("assets/images/baby.png",fit: BoxFit.cover,)),
+                                  child: Image.asset(_profileModel.data.sex=="girl"?"assets/images/baby.png":
+                                  "assets/images/boy.png",fit: BoxFit.cover,)),
                              Text(_profileModel.data.babyName, style: TextStyle(fontSize:14,fontWeight: FontWeight.bold,)),
-                             Text(_profileModel.data.dateOfBirth, style: TextStyle(fontSize:14,fontWeight: FontWeight.w600,)),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Container(
-                                height: height*.1,
-                                  child: Image.asset("assets/images/bb.png",fit: BoxFit.cover,)),
-                             Text("Last changed", style: TextStyle(fontSize:14,fontWeight: FontWeight.w600,)),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Container(
-                                height: height*.1,
-                                  child: Image.asset("assets/images/bb.png",fit: BoxFit.cover,)),
 
-                             Text("3 month", style: TextStyle(fontSize:14,fontWeight: FontWeight.w600,)),
+                             Text(
+
+                                "${DateTime.now().difference( DateTime.parse( _profileModel.data.dateOfBirth)).
+                                inDays ~/30 } month",
+                                 style: TextStyle(fontSize:14,fontWeight: FontWeight.w600,)),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              GestureDetector(
+                                onTap: ()async{
+                                  final picked = await showTimePicker(context: context,initialTime: TimeOfDay.now());
+                                  if(picked != null){
+                                    setState(() {
+                                      time= picked.hour.toString() + ':' + picked.minute.toString().padLeft(2,'0') ;
+                                      box.write("time", time);
+                                    });
+                                  }
+                                },
+                                child: Container(
+                                  height: height*.1,
+                                    child: Image.asset("assets/images/bam.png",fit: BoxFit.cover,)),
+
+                              ),
+                             Text("Last changed", style: TextStyle(fontSize:14,fontWeight: FontWeight.w600,)),
+                             Text(box.read("time")!=null?box.read("time") :"add..", style: TextStyle(fontSize:14,fontWeight: FontWeight.w600,)),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              GestureDetector(
+                                onTap: ()async{
+                                  final picked = await showTimePicker(context: context,initialTime: TimeOfDay.now());
+                                  if(picked != null){
+                                    setState(() {
+                                      time2 = picked.hour.toString() + ':' + picked.minute.toString().padLeft(2,'0') ;
+                                      box.write("time2", time2);
+                                    });
+                                  }
+                                },
+                                child: Container(
+                                    height: height*.1,
+                                    child: Image.asset("assets/images/bb.png",fit: BoxFit.cover,)),
+
+                              ),
+
+                              Text("Last Time", style: TextStyle(fontSize:14,fontWeight: FontWeight.w600,)),
+                              Text( box.read("time2")!=null?box.read("time2"):"add..", style: TextStyle(fontSize:14,fontWeight: FontWeight.w600,)),
                             ],
                           ),
 

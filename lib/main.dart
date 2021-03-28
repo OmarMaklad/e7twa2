@@ -7,6 +7,8 @@ import 'package:e7twa2/welcome/view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'drProfile/cubit/cubit.dart';
+
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await AndroidAlarmManager.initialize();
@@ -22,6 +24,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_)=>SignUpControllerCubit()),
         BlocProvider(create: (_)=>VaControllerCubit()),
         BlocProvider(create: (_)=>EditProfileCubit()),
+        BlocProvider(create: (_)=>EditDrCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

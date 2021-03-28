@@ -40,7 +40,7 @@ class _DrAppointState extends State<DrAppoint> {
           children: [
             Padding(
               padding:  EdgeInsets.only(top:40,left: 20),
-              child: Text('Bills History',style: TextStyle(
+              child: Text('Appointments schedule',style: TextStyle(
                   fontWeight: FontWeight.w900,fontSize: 20
               ),),
             ),
