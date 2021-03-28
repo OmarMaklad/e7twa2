@@ -8,7 +8,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
 import 'bloc/state.dart';
 
 class SignUp extends StatefulWidget {
@@ -20,6 +19,7 @@ class _SignUpState extends State<SignUp> {
   GlobalKey<FormState>_globalKey =GlobalKey<FormState>();
   int value=0;
   bool select = true;
+  String date;
   @override
   Widget build(BuildContext context) {
     final cubit=SignUpControllerCubit.get(context);
@@ -70,7 +70,7 @@ class _SignUpState extends State<SignUp> {
                 children: [
                   Padding(
                     padding:  EdgeInsets.symmetric(horizontal: 30,vertical: 20),
-                    child: Text("Great Your account",style: TextStyle(fontSize:24,fontWeight: FontWeight.bold)),
+                    child: Text("Create Your account",style: TextStyle(fontSize:24,fontWeight: FontWeight.bold)),
                   ),
                   Align(
                     alignment: Alignment.center,
@@ -179,20 +179,46 @@ class _SignUpState extends State<SignUp> {
                     },
                     hint: "password",
                     dIcon: "assets/images/pas.png",
+                    icon: Icons.lock_outline,
                     onsave: (v){
                       cubit.password=v;
                     },
                   ),
+                  select==true? CustomTextField(
+                    valid: (v){
+                      if(v.isEmpty){
+                        return "please enter your baby date";
+                      }
+                    },
+                    read: true,
+                    onTap: ()async{
+                      final picked = await showDatePicker(context: context,
+                          initialDate: DateTime.now(), firstDate: DateTime.utc(2000), lastDate: DateTime.now().add(Duration(days: 7)));
+                      if(picked != null){
+                        setState(() {
+                          cubit.date = picked.year.toString()
+                              + '-' + picked.month.toString().padLeft(2,'0') + '-' +
+                              picked.day.toString().padLeft(2,'0');
+
+                        });
+                      }
+                    },
+                    hint: cubit.date!=null?cubit.date:"date of barth",
+                    dIcon: "assets/images/date.png",
+
+
+                  ):
                   CustomTextField(
                     valid: (v){
                       if(v.isEmpty){
                         return "please enter your baby date";
                       }
                     },
-                    hint: select==true?"date of barth":"spicialization",
-                    dIcon: select==true?"assets/images/date.png":"assets/images/hed.png",
+
+                    hint: "spicialization",
+                    dIcon: "assets/images/hed.png",
                     onsave: (v){
-                      select==true?cubit.date=v:cubit.specialization=v;
+                      cubit.specialization=v;
                     },
 
                   ),
@@ -355,6 +381,7 @@ class _SignUpState extends State<SignUp> {
               ),
             ),
           ),
+
         ],
       ),
     );

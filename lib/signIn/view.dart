@@ -149,6 +149,7 @@ class _SignInState extends State<SignIn> {
                    },
                    hint: "password",
                    dIcon: "assets/images/pas.png",
+                   icon: Icons.lock_outline,
                    onsave: (v){
                      LoginControllerCubit.get(context).password = v;
                    },

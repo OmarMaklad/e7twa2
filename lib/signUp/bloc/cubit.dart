@@ -27,7 +27,7 @@ class SignUpControllerCubit extends Cubit<SignUpState>{
         "phone":"+966${phone}",
         "password":"${password}",
         "email":email,
-        "date_of_birth":"${date}",
+        "date_of_birth":date.toString(),
         "baby_name":babyName,
         "user_name":parentName,
         "sex":sex,
