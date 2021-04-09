@@ -6,7 +6,8 @@ class VaccinationCard extends StatelessWidget {
   final String subtitle;
   final String image;
   final Function onTap;
-  VaccinationCard({this.title,this.image,this.subtitle, this.onTap});
+  final bool del;
+  VaccinationCard({this.title,this.image,this.subtitle, this.onTap, this.del});
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -28,7 +29,7 @@ class VaccinationCard extends StatelessWidget {
               ],
             ),
             Spacer(),
-            IconButton(
+           del==true?SizedBox(): IconButton(
               icon: Icon(Icons.delete,color: Colors.red,),
               onPressed: onTap,
             ),

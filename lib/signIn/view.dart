@@ -183,7 +183,6 @@ class _SignInState extends State<SignIn> {
                      final cubit = LoginControllerCubit.get(context);
                      return Column(
                        children: [
-                         (state is LoginErrorState)?Text('${state.error}',style: TextStyle(color: kPrimaryColor),):Container(),
                          state is LoginLoadingState ? Center(
                            child: SpinKitChasingDots(
                              size: 40,

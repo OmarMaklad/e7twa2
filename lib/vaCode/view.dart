@@ -1,5 +1,4 @@
 import 'package:e7twa2/DoctorHome/view.dart';
-import 'package:e7twa2/DoctorProfile/view.dart';
 import 'package:e7twa2/constants.dart';
 import 'package:e7twa2/home/view.dart';
 import 'package:e7twa2/vaCode/bloc/state.dart';
@@ -10,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'bloc/cubit.dart';
 
 class VaCode extends StatefulWidget {
@@ -118,24 +116,19 @@ class _VaCodeState extends State<VaCode> {
                     },
                     builder: (context,state){
                       final cubit = VaControllerCubit.get(context);
-                      return Column(
-                        children: [
-                          (state is VaErrorState)?Text('${state.error}',style: TextStyle(color: kPrimaryColor),):Container(),
-                          state is VaLoadingState ? Center(
-                            child: SpinKitChasingDots(
-                              size: 40,
-                              color: kPrimaryColor,
-                            ),
-                          ) :  CustomButton(
-                              onPressed: ()  {
-                                if(_globalKey.currentState.validate()){
-                                  cubit.signIn();
-                                }
-                              },
-                              color: kPrimaryColor,
-                              title: "Done")
-                        ],
-                      );
+                      return state is VaLoadingState ? Center(
+                        child: SpinKitChasingDots(
+                          size: 40,
+                          color: kPrimaryColor,
+                        ),
+                      ) :  CustomButton(
+                          onPressed: ()  {
+                            if(_globalKey.currentState.validate()){
+                              cubit.sendVa();
+                            }
+                          },
+                          color: kPrimaryColor,
+                          title: "Done");
                       },
                   ),
                 ],

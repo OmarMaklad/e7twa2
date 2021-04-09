@@ -1,13 +1,11 @@
 import 'package:e7twa2/DrAppoint/view.dart';
-import 'package:e7twa2/allChats/chatCard.dart';
 import 'package:e7twa2/allChats/view.dart';
 import 'package:e7twa2/drProfile/view.dart';
 import 'package:e7twa2/profile/data/controller.dart';
 import 'package:e7twa2/profile/data/model.dart';
-import 'package:e7twa2/userReports/view.dart';
+import 'package:e7twa2/reportsPerceptions/view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
 import '../constants.dart';
 import 'card.dart';
 
@@ -100,7 +98,7 @@ class _DrHomeState extends State<DrHome> {
                               height: height*.1,
                               child: Image.asset("assets/images/doc.png",fit: BoxFit.cover,)),
                           Text(_profileModel.data.userName, style: TextStyle(fontSize:18,fontWeight: FontWeight.bold,)),
-                          Text(_profileModel.data.type, style: TextStyle(fontSize:14,fontWeight: FontWeight.w600,)),
+                          Text(_profileModel.data.specialization.toString(), style: TextStyle(fontSize:14,fontWeight: FontWeight.w600,)),
                         ],
                       ),
                       GestureDetector(
@@ -121,9 +119,11 @@ class _DrHomeState extends State<DrHome> {
                 SizedBox(height: 40,),
                 DrHomeCard(name: "Appointments Schedule",image: "assets/images/appointments.png",arrow: false,route: DrAppoint(),),
                 SizedBox(height: 10,),
-                DrHomeCard(name: "Reports And Percepations",image: "assets/images/bbb.png",arrow: false,route: UserReports(),),
+                DrHomeCard(name: "Reports And Percepations",image: "assets/images/bbb.png",arrow: false,route: ReportsPerceptionsView(),),
                 SizedBox(height: 10,),
-                DrHomeCard(name: "Patients Chats",image: "assets/images/chat.png",arrow: false,route: AllChats(),),
+                DrHomeCard(name: "Patients Chats",image: "assets/images/chat.png",arrow: false,route: AllChats(
+                  doc: true,
+                ),),
               ],
             ),
           ),

@@ -6,6 +6,9 @@ import 'controller/controller.dart';
 import 'model/AllChatsModel.dart';
 
 class AllChats extends StatefulWidget {
+  final bool doc;
+
+  const AllChats({Key key, this.doc}) : super(key: key);
   @override
   _AllChatsState createState() => _AllChatsState();
 }
@@ -37,7 +40,7 @@ class _AllChatsState extends State<AllChats> {
           child: loading?
           Center(
             child:CircularProgressIndicator(),
-          ): AllChatsList(allChatsModel: _allChatsModel,),
+          ): AllChatsList(allChatsModel: _allChatsModel,doc: widget.doc,),
         ),
       ),
     );

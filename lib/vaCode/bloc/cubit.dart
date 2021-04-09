@@ -12,17 +12,22 @@ class VaControllerCubit extends Cubit<VaState>{
   String email;
   String code;
 
-  Future<void> signIn()async{
+  Future<void> sendVa()async{
     emit(VaLoadingState());
+    print(email);
+    print(code);
     try{
-      final url = 'http://ehtwa.jeeet.net/api/phoneVerify';
+      final url = 'http://ehtwa.jeeet.net/api/verifyForgetPassword';
       FormData formData = FormData.fromMap({
         "email":email,
         "code":code,
       });
       final Response response = await _dio.post(url,data: formData,);
-      if(response.statusCode!=null&&response.statusCode == 200&&response.data['msg']=="success"){
+      if(response.statusCode == 200&&response.data['msg']=="success"){
         SharedPreferences _prefs = await SharedPreferences.getInstance();
+        _prefs.setString("type", response.data['data']['user']['type']);
+        _prefs.setString("api_token",response.data['data']['user']['api_token']);
+        print(_prefs.getString('type'));
         print(response.data);
         emit(VaSuccessState());
       }else if(response.statusCode == 200&&response.data['msg']=="error"){

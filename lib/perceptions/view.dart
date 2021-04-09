@@ -35,7 +35,7 @@ class _PerceptionsViewState extends State<PerceptionsView> {
         child: _isLoading ? Loading() : Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Perceptions',style: TextStyle(
+            Text('Medicine',style: TextStyle(
                 fontWeight: FontWeight.w900,fontSize: 20
             ),),
             SizedBox(height: 20,),
@@ -54,7 +54,8 @@ class _PerceptionsViewState extends State<PerceptionsView> {
             )),
             Align(
                 alignment: Alignment.centerRight,
-                child: SmallButton(onPressed: ()=> Navigator.push(context, MaterialPageRoute(builder: (context) => MedicineAlarmView(),)), title: 'Add Alarm',color: Colors.lightBlueAccent,)
+                child: SmallButton(onPressed: ()=> Navigator.push(context, MaterialPageRoute(builder: (context) => MedicineAlarmView(),)),
+                  title: 'Add Alarm',color: Colors.lightBlueAccent,)
             )
           ],
         ),

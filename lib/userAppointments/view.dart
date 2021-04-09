@@ -47,6 +47,7 @@ class _UserAppointmentsViewState extends State<UserAppointmentsView> {
                 image: 'doc',
                 title: _userAppointmentsModel.data[index].padiatricianUserName,
                 subtitle: _userAppointmentsModel.data[index].date,
+                del: true,
                 onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (context) => DoctorProfile(
                   id: _userAppointmentsModel.data[index].padiatricianId,
                 ),)),

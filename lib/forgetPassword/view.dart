@@ -1,9 +1,14 @@
 import 'package:e7twa2/constants.dart';
+import 'package:e7twa2/forgetPassword/bloc/cubit.dart';
+import 'package:e7twa2/forgetPassword/bloc/state.dart';
+import 'package:e7twa2/vaCode/bloc/cubit.dart';
 import 'package:e7twa2/vaCode/view.dart';
 import 'package:e7twa2/widgets/customButton.dart';
 import 'package:e7twa2/widgets/customTextFeild.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class ForgetPassword extends StatefulWidget {
   @override
@@ -79,13 +84,41 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 ),
                 CustomTextField(
                   hint: "email",
+                  onsave: (v){
+                    ForgetCubit.get(context).email=v;
+                    VaControllerCubit.get(context).email=v;
+                  },
                   dIcon: "assets/images/email.png",
                 ),
                 SizedBox(height: height*.02,),
-                CustomButton(onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (_)=>VaCode()));
-                }, title: "Send",color: kPrimaryColor,)
-
+                BlocConsumer<ForgetCubit,ForgetState>(
+                  listener: (_,state){
+                    if(state is ForgetErrorState )
+                      Scaffold.of(_).showSnackBar(SnackBar(backgroundColor: kPrimaryColor,content: Text(state.error,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: "dinnextl bold",
+                            fontSize: 14
+                        ),)));
+                    if(state is ForgetSuccessState ){
+                      Navigator.push(context, MaterialPageRoute(builder: (_)=>VaCode()));
+                    }
+                  },
+                  builder: (context,state){
+                    final cubit = ForgetCubit.get(context);
+                    return state is ForgetLoadingState ? Center(
+                      child: SpinKitChasingDots(
+                        size: 40,
+                        color: kPrimaryColor,
+                      ),
+                    ) :  CustomButton(
+                        onPressed: ()  {
+                         cubit.forget();
+                        },
+                        color: kPrimaryColor,
+                        title: "Send");
+                  },
+                ),
               ],
 
             ),

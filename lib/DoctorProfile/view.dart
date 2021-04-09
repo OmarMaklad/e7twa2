@@ -139,13 +139,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                     }, title: "Chat",color:Colors.green),
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    MediaButton(onPressed: (){}, title: "View FeedBack",color:Colors.yellow,),
-                    MediaButton(onPressed: (){}, title: "Give FeedBack",color:Colors.blue),
-                  ],
-                ),
+
 
 
 

@@ -19,7 +19,8 @@ class MedicineAlarmController {
     });
     final response = await _netWork.postData(url: 'addmedicineealarm',headers: {
       'Authorization':'Bearer $token'
-    },formData: formData);
+    },
+        formData: formData);
     print(response);
     MyMedicineAlarmsModel _model = MyMedicineAlarmsModel.fromJson(response);
     return _model.data.last.id;

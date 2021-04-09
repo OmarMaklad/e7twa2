@@ -1,4 +1,7 @@
 import 'package:android_alarm_manager/android_alarm_manager.dart';
+import 'package:e7twa2/forgetPassword/bloc/cubit.dart';
+import 'package:e7twa2/forgetPassword/bloc/state.dart';
+import 'package:e7twa2/makeAppointment/bloc/cubit.dart';
 import 'package:e7twa2/profile/cubit/cubit.dart';
 import 'package:e7twa2/signIn/bloc/cubit.dart';
 import 'package:e7twa2/signUp/bloc/cubit.dart';
@@ -25,6 +28,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_)=>VaControllerCubit()),
         BlocProvider(create: (_)=>EditProfileCubit()),
         BlocProvider(create: (_)=>EditDrCubit()),
+        BlocProvider(create: (_)=>OrderCubit()),
+        BlocProvider(create: (_)=>ForgetCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

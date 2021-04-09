@@ -13,7 +13,7 @@ class ReportsPerceptionsView extends StatelessWidget {
         child: ListView(
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Vaccination',style: TextStyle(
+            Text('Reports',style: TextStyle(
                 fontWeight: FontWeight.w900,fontSize: 20
             ),),
             SizedBox(height: 20,),
@@ -29,8 +29,14 @@ class ReportsPerceptionsView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                IconCard(),
-                IconCard(),
+                IconCard(
+                  image: "assets/images/reports.png",
+                  title:"View Reports" ,
+                ),
+                IconCard(
+                  image: "assets/images/perceptions.png",
+                  title:"View Parceptions" ,
+                ),
               ],
             )
           ],

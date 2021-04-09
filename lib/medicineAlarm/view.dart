@@ -26,6 +26,11 @@ class _MedicineAlarmViewState extends State<MedicineAlarmView> {
   TimeOfDay timeOfDay = TimeOfDay.now();
   bool _isLoading = false;
   @override
+  void initState() {
+
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(context),
@@ -33,7 +38,7 @@ class _MedicineAlarmViewState extends State<MedicineAlarmView> {
         child: ListView(
           padding: EdgeInsets.all(20),
           children: [
-            Text('Vaccines alarm',style: TextStyle(fontWeight: FontWeight.bold),),
+            Text('Medicine alarm',style: TextStyle(fontWeight: FontWeight.bold),),
             Image.asset('assets/images/perceptions.png',height: sizeFromHeight(context, 4),),
             CustomTextField(
               hint: 'Start Date',
@@ -83,24 +88,11 @@ class _MedicineAlarmViewState extends State<MedicineAlarmView> {
                   });
                 }
               },
-              hint: 'Vaccine Time',
+              hint: 'Time',
               controller: time,
             ),
-            // SizedBox(height: 15,),
-            // Row(
-            //   children: [
-            //     Expanded(child: SmallTextField(controller: hours,)),
-            //     Padding(
-            //       padding: const EdgeInsets.symmetric(horizontal: 10),
-            //       child: Text(':',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-            //     ),
-            //     Expanded(child: SmallTextField(
-            //       controller: minutes,
-            //     )),
-            //     SizedBox(width: 20,),
-            //     AmPmSwitch(),
-            //   ],
-            // ),
+
+
             SizedBox(height: 20,),
             _isLoading ? Loading() : Row(
               children: [
@@ -115,6 +107,10 @@ class _MedicineAlarmViewState extends State<MedicineAlarmView> {
                   child: SmallButton(
                     title: 'Add Alarm',
                     onPressed: ()async{
+                      print(days.text);
+                      print(endDate.text);
+                      print(startDate.text);
+                      print(time.text);
                       setState(()=> _isLoading = true);
                       int id = await MedicineAlarmController().addAlarm(
                         days: days.text,

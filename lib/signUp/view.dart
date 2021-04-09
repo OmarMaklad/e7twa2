@@ -125,9 +125,11 @@ class _SignUpState extends State<SignUp> {
                   CustomTextField(
                     valid: (v){
                       if(v.isEmpty){
-                        return "please enter Baby Name";
+                        return select==true?"please enter Baby Name":"please enter Doctor Name";
                       }
                     },
+
+                    type: TextInputType.name,
                     hint:select==true?"baby Name":"Doctor Name",
                     dIcon: select==true?"assets/images/baby.png":"assets/images/doc.png",
                     onsave: (v){
@@ -137,9 +139,10 @@ class _SignUpState extends State<SignUp> {
                   CustomTextField(
                     valid: (v){
                       if(v.isEmpty){
-                        return "please enter your Name";
+                        return "please enter your UserName";
                       }
                     },
+                    type: TextInputType.text,
                     hint: "usrName",
                     dIcon: "assets/images/user.png",
                     onsave: (v){
@@ -152,6 +155,7 @@ class _SignUpState extends State<SignUp> {
                         return "please enter your phone";
                       }
                     },
+                    type: TextInputType.number,
                     hint: "phone",
                     dIcon: "assets/images/phone.png",
                     onsave: (v){
@@ -164,7 +168,8 @@ class _SignUpState extends State<SignUp> {
                         return "please enter your email";
                       }
                     },
-                    hint: "email",
+                    type: TextInputType.emailAddress,
+                    hint: "example@example.com",
                     dIcon: "assets/images/email.png",
                     onsave: (v){
                       cubit.email=v;
@@ -186,7 +191,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                   select==true? CustomTextField(
                     valid: (v){
-                      if(v.isEmpty){
+                      if(cubit.date==null){
                         return "please enter your baby date";
                       }
                     },
@@ -196,6 +201,8 @@ class _SignUpState extends State<SignUp> {
                           initialDate: DateTime.now(), firstDate: DateTime.utc(2000), lastDate: DateTime.now().add(Duration(days: 7)));
                       if(picked != null){
                         setState(() {
+                          print(picked.year.toString()+ '-' + picked.month.toString().padLeft(2,'0') + '-' +
+                                  picked.day.toString().padLeft(2,'0'));
                           cubit.date = picked.year.toString()
                               + '-' + picked.month.toString().padLeft(2,'0') + '-' +
                               picked.day.toString().padLeft(2,'0');
@@ -211,10 +218,10 @@ class _SignUpState extends State<SignUp> {
                   CustomTextField(
                     valid: (v){
                       if(v.isEmpty){
-                        return "please enter your baby date";
+                        return "please enter your spicialization";
                       }
                     },
-
+                     type: TextInputType.text,
                     hint: "spicialization",
                     dIcon: "assets/images/hed.png",
                     onsave: (v){

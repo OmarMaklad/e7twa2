@@ -5,7 +5,8 @@ import 'model/AllChatsModel.dart';
 
 class AllChatsList extends StatelessWidget {
   final AllChatsModel allChatsModel;
-   AllChatsList({ this.allChatsModel}) ;
+  final bool doc;
+   AllChatsList({ this.allChatsModel, this.doc}) ;
   @override
   Widget build(BuildContext context) {
     return  Padding(
@@ -13,9 +14,10 @@ class AllChatsList extends StatelessWidget {
       child: ListView.separated(
         itemBuilder:(ctx,index)=>
             ChatsCard(
-          name: allChatsModel.data[index].sender.userName,
-          date: allChatsModel.data[index].sender.createdAt,chatId: allChatsModel.data[index].id,
-          image: 'assets/images/doc.png',
+          name:doc==true?allChatsModel.data[index].sender.userName:allChatsModel.data[index].receiver.userName,
+          date: allChatsModel.data[index].sender.createdAt,
+              chatId: allChatsModel.data[index].id,
+          image: doc==true?'assets/images/baby.png':'assets/images/doc.png',
         ),
         shrinkWrap: true,
         scrollDirection: Axis.vertical,

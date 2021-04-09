@@ -1,6 +1,7 @@
 import 'package:e7twa2/confirmAppointment/view.dart';
 import 'package:e7twa2/fiendDoctor/data/controller.dart';
 import 'package:e7twa2/fiendDoctor/data/model.dart';
+import 'package:e7twa2/makeAppointment/bloc/state.dart';
 import 'package:e7twa2/vaccinesAlarm/widgets/drop_menu.dart';
 import 'package:e7twa2/widgets/customTextFeild.dart';
 import 'package:e7twa2/widgets/custom_app_bar.dart';
@@ -8,8 +9,11 @@ import 'package:e7twa2/widgets/gradient_bg.dart';
 import 'package:e7twa2/widgets/loading.dart';
 import 'package:e7twa2/widgets/smallButton.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-import 'controller.dart';
+import '../constants.dart';
+import 'bloc/cubit.dart';
 
 class MakeAppointmentView extends StatefulWidget {
   @override
@@ -37,6 +41,7 @@ class _MakeAppointmentViewState extends State<MakeAppointmentView> {
 
   @override
   Widget build(BuildContext context) {
+    final cubit= OrderCubit.get(context);
     return Scaffold(
       appBar: appBar(context),
       body: GradientBackground(
@@ -97,29 +102,43 @@ class _MakeAppointmentViewState extends State<MakeAppointmentView> {
                   ),
                 ),
                 Expanded(
-                  child: SmallButton(
-                    title: 'Confirm',
-                    onPressed: ()async{
-                      setState(()=> isLoading = true);
-                      int id = await MakeAppointmentController().create(
-                        id: doc.id,
-                        time: time.text,
-                        date: date.text,
-                        address: location.text
-                      );
-                      // AndroidAlarmManager.oneShotAt(DateTime.parse(date.text).add(Duration(
-                      //   hours: timeOfDay.hour,
-                      //   minutes: timeOfDay.minute,
-                      // )), id,x);
-                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => ConfirmAppointmentView(
-                        id: id,
-                        date: date.text,
-                        location: location.text,
-                        docName: doc.userName,
-                        time: time.text,
-                      ),),(_)=> false);
+                  child:  BlocConsumer<OrderCubit,OrderState>(
+                    listener: (_,state){
+                      if(state is OrderErrorState )
+                        Scaffold.of(_).showSnackBar(SnackBar(backgroundColor: Colors.white,content: Text(state.error,
+                          style: TextStyle(
+                              color: kPrimaryColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14
+                          ),)));
+                      if(state is OrderSuccessState ){
+                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => ConfirmAppointmentView(
+                          id: cubit.appointModel.data.id,
+                          date: date.text,
+                          location: location.text,
+                          docName: doc.userName,
+                          time: time.text,
+                        ),),(_)=> false);
+                      }
                     },
-                    color: Colors.lightBlueAccent,
+                    builder: (_,state)=>
+                    state is OrderLoadingState ? Center(
+                    child: SpinKitChasingDots(
+                    size: 40,
+                    color: kPrimaryColor,
+                  ),
+                ) :SmallButton(
+                        title: 'Confirm',
+                        onPressed: ()async{
+                          cubit.sendOrder(
+                              id: doc.id,
+                              time: time.text,
+                              date: date.text,
+                              address: location.text
+                          );
+                        },
+                        color: Colors.lightBlueAccent,
+                      ),
                   ),
                 ),
               ],
